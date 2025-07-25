@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from datetime import datetime
 from typing import Optional
+from datetime import datetime
 
 
 @dataclass
@@ -13,6 +14,7 @@ class UserModel:
     is_admin: bool = False
     is_banned: bool = False
     registration_date: Optional[datetime] = None
+    phone_number: Optional[str] = None
     query_count: int = 0
 
     def full_name(self) -> str:
@@ -53,3 +55,47 @@ class Pagination:
     @property
     def offset(self) -> int:
         return (self.page - 1) * self.per_page
+
+
+@dataclass
+class ServiceModel:
+    """Класс для представления сервиса"""
+    name: str
+    description: str
+    price: float
+    id: Optional[int] = None
+    duration: Optional[int] = None
+    is_active: bool = True
+
+
+@dataclass
+class SlotModel:
+    """Класс для представления слота для записи"""
+    start_time: datetime
+    end_time: datetime
+    is_available: bool
+    id: Optional[int] = None
+
+
+@dataclass
+class PhotoModel:
+    """Класс для представления фото референсов"""
+    id: Optional[int] = None
+    telegram_file_id: Optional[str] = None
+    file_unique_id: Optional[str] = None
+    caption: Optional[str] = None
+
+
+@dataclass
+class AppointmentModel:
+    """Модель записи на прием"""
+    id: Optional[int] = None
+    client_id: Optional[int] = None
+    slot_id: Optional[int] = None
+    service_id: Optional[int] = None
+    status: str = 'pending'
+    created_at: Optional[datetime] = None
+    updated_at: Optional[datetime] = None
+    service_name: Optional[str] = None
+    start_time: Optional[datetime] = None
+    end_time: Optional[datetime] = None
